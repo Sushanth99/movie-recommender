@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Other files
+main.ipynb
+movies_metadata.csv
+./src/.env
+SQuAD_it-train.json.gz
+.ipynb_checkpoints/
+.DS_Store
