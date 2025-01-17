@@ -12,7 +12,7 @@ wheels/
 # Other files
 main.ipynb
 movies_metadata.csv
-./src/.env
+src/.env
 SQuAD_it-train.json.gz
 .ipynb_checkpoints/
 .DS_Store

@@ -7,6 +7,7 @@ import pandas as pd
 from pinecone.grpc import PineconeGRPC as Pinecone
 # from sentence_transformers import SentenceTransformer, models
 import os
+import sys
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
@@ -20,9 +21,10 @@ model_for_dummy_desc = genai.GenerativeModel(model_name_for_dummy_desc)
 def generate_dummy_desc(user_input: str) -> str:
     """Returns the dummy description based on the user_input."""
 
-    prompt_for_dummy_desc = f"""Using the following text generate a dummy movie overview. This is used 
-    for semantic search. The response should be around 100 words. The output should be in the following 
-    format 'Genres: [genres seperated by commas]\nOverview: [overview of the movie]'
+    prompt_for_dummy_desc = f"""Using the following text to generate a dummy 
+    movie overview. This will be used for semantic search. The response should 
+    be around 100 words. The output should be in the following format 
+    'Genres: [genres seperated by commas]\nOverview: [overview of the movie]'
 
     TEXT: {user_input}"""
     response = model_for_dummy_desc.generate_content(prompt_for_dummy_desc)
@@ -89,7 +91,7 @@ def movie_recommender(user_input: str, top_k=3) -> list[str]:
 ## Inference Pipeline (Assuming the vector database is setup and populated with embedding vectors)
 movies_df = pd.read_csv("movies_df.csv", index_col=0)
 # 1. User input
-user_input = "recommend some war movies"
+user_input = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else "recommend some war movies"
 
 result = movie_recommender(user_input, top_k=10)
 # print(result)
